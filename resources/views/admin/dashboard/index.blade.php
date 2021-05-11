@@ -1,5 +1,10 @@
 @extends('admin.layouts.app')
 @section('content')
+    @if (session('status'))
+        <div class="alert alert-default-primary">
+            {{ session('status') }}
+        </div>
+    @endif
     <h2 class="mb-5 pt-3"> Dashboard</h2>
         <ul class="row stats clearfix">
             <li class="col-3">
@@ -109,9 +114,9 @@
                             <td>{{ $item->user->name }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>
-                                @if ($order->status == 0)
+                                @if ($item->status == 0)
                                     <a class="btn btn-primary">Đang chờ xử lý</a>
-                                @elseif ($order->status == -1)
+                                @elseif ($item->status == -1)
                                     <a class="btn btn-danger">Bị hủy</a>
                                 @else
                                     <a class="btn btn-success">Đã giao</a>

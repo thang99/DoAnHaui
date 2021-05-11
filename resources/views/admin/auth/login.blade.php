@@ -42,13 +42,18 @@
          border: none;
          border-radius: 50%; 
       }
+      .alert {
+         position: absolute;
+         top:-150px;
+         left:100px;
+      }
    </style>
 </head>
 <body>
    <div id="app">
-         @if (session('noti'))
-            <div class="alert alert-danger">
-               {{ session('noti') }}
+         @if (session('status'))
+            <div class="alert alert-primary">
+               {{ session('status') }}
             </div>
          @endif
          <div>
@@ -64,7 +69,7 @@
                <form class="form-login" action="{{ route('admin.login')}}" method="POST">
                   @csrf     
                   <div class="form-group">
-                     <input id="exampleInputEmail1" type="email" placeholder="Enter email" style="padding-left:40px" class="form-control" name="email" value="{{ old('email')}}">
+                     <input id="exampleInputEmail1" type="email" placeholder="Email" style="padding-left:40px" class="form-control" name="email" value="{{ old('email')}}">
                      <span class="fa fa-envelope form-control-feedback text-muted"></span>
                      @error('email')
                         <p class="text-danger">{{ $message }}</p>

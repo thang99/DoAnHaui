@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PasswordRequest;
+use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -64,7 +65,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('admin.profile.index',compact('user'));
     }
 
     /**
@@ -127,6 +130,7 @@ class UserController extends Controller
         } else {
             $user->delete();
         }
+        
         return redirect()->route('users.index')->with('status','Xóa thành công');
     }
 
@@ -137,5 +141,44 @@ class UserController extends Controller
         $users = User::where('email','LIKE','%'.$search_text.'%')->paginate(7);
 
         return view('admin.user.search',compact('users'));
+    }
+
+    public function editAdmin($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('admin.profile.edit-profile',compact('user'));
+    }
+
+    public function updateProfileAdmin(ProfileRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->gender = $request->gender;
+        $user->birthday = $request->birthday;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect()->back()->with('status','Cập nhật thông tin cá nhân thành công');
+    }
+
+    public function updatePasswordAdmin(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $validatedPassword = $request->validate([
+            'password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    return $fail(__('Mật khẩu hiện tại không đúng.'));
+                }
+            }],
+            'new_password' => 'required|min:8',
+            'confirm_password' => 'required|same:new_password|min:8'
+        ]);
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('alert','Cập nhật mật khẩu thành công');
     }
 }

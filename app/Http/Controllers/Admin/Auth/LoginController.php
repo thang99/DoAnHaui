@@ -25,6 +25,8 @@ class LoginController extends Controller
             return redirect()->route('dashboard.index')->with('status','Đăng nhập thành công');
         }else if(Auth::attempt($loginEmployee)) {
             return redirect()->route('dashboard.index')->with('status','Đăng nhập thành công');
-        }   
+        } else {
+            return redirect()->back()->with('status','Kiểm tra lại email hoặc mật khẩu');
+        }
     }
 }

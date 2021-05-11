@@ -24,8 +24,8 @@
                         <img src="{{asset('images/user.png')}}" alt="" width="25" height="25"><i class="fas fa-caret-down ml-1"></i>
                     </a>    
                     <div class="dropdown-menu mt-2" aria-labelledby="dropdownMenuLink" style="margin-right: -60px">
-                        <a class="dropdown-item" href="{{route('user.show',Auth::id())}}"><i class="fas fa-user mr-2"></i>{{Auth::user()->name}}</a>
-                        <a class="dropdown-item" href="{{route('user.edit',Auth::id())}}"><i class="fas fa-user-cog mr-2"></i>Cài đặt</a>
+                        <a class="dropdown-item" href="{{route('users.show',Auth::id())}}"><i class="fas fa-user mr-2"></i>{{Auth::user()->name}}</a>
+                        <a class="dropdown-item" href="{{route('users.editAdmin',Auth::id())}}"><i class="fas fa-user-cog mr-2"></i>Cài đặt</a>
                         <a class="dropdown-item" href="{{route('admin.logout')}}"><i class="fas fa-sign-out-alt mr-2"></i>Đăng xuất</a>
                     </div>
                 </div>

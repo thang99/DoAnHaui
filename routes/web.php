@@ -48,6 +48,10 @@ Route::group(['namespace' => 'Admin','middleware' => 'checkLogin'], function()
         // change profile & password
         Route::put('users/{id}/edit/profile','UserController@updateProfile')->name('users.profile');
         Route::put('users/{id}/edit/password','UserController@updatePassword')->name('users.password');
+
+        Route::get('users/admin/{id}','UserController@editAdmin')->name('users.editAdmin');
+        Route::put('/users/admin/{id}/edit/profile','UserController@updateProfileAdmin')->name('users.profile');
+        Route::put('/users/admin/{id}/edit/password','UserController@updatePasswordAdmin')->name('users.password');
     });
 });
 
