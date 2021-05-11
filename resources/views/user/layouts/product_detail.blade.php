@@ -89,15 +89,98 @@
                                 @endphp 
                             @endfor         
                             <h3 class="text-danger text-bold">
-                                    {{ $avg }} / 5
+                                    {{ ceil($avg) }} / 5
                             </h3>
-                            <ul class="d-flex mt-2">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    <li class="stars" data-value={{$i}} value={{$i}}>
+                            @if (ceil($avg) == 5)
+                                <ul class="d-flex mt-2">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <li class="stars">
+                                            <i class='fas fa-star'></i>
+                                        </li> 
+                                    @endfor
+                                </ul>
+                            @elseif (ceil($avg) == 4)
+                                <ul class="d-flex mt-2">
+                                    <li class="stars">
                                         <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='far fa-star'></i>
+                                    </li>
+                                </ul>
+                            @elseif (ceil($avg) == 3)
+                                <ul class="d-flex mt-2">
+                                    <li class="stars">
+                                        <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='far fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class="far fa-star"></i>
                                     </li> 
-                                @endfor
-                            </ul>
+                                </ul>
+                            @elseif (ceil($avg) == 2)
+                                <ul class="d-flex mt-2">
+                                    <li class="stars">
+                                        <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='far fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='far fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class="far fa-star"></i>
+                                    </li>
+                                </ul>
+                            @elseif (ceil($avg) == 1)
+                                <ul class="d-flex mt-2">
+                                    <li class="stars">
+                                        <i class='fas fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='far fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='far fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='far fa-star'></i>
+                                    </li>
+                                    <li class="stars">
+                                        <i class='far fa-star'></i>
+                                    </li>
+                                </ul>
+                            @else
+                                <ul class="d-flex mt-2">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <li class="stars">
+                                            <i class='far fa-star'></i>
+                                        </li> 
+                                    @endfor
+                                </ul>
+                            @endif
+        
                             <small>{{ count($ratings) }} đánh giá</small> 
                         </div>
                     @else
@@ -120,11 +203,6 @@
                         <ul>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    <span>5</span>
-                                    <span><i class='fas fa-star'></i></span>
-                                    <div class="progress w-75">
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%"></div>
-                                    </div>
                                     @php
                                         $count = 0;
                                     @endphp
@@ -135,16 +213,27 @@
                                             @endphp 
                                         @endif      
                                     @endforeach
+                                    <span>5</span>
+                                    <span><i class='fas fa-star'></i></span>
+                                    <div class="progress w-75">
+                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                    </div>
+                                    {{-- @php
+                                        $count = 0;
+                                    @endphp
+                                    @foreach ($ratings as $rating)
+                                        @if ($rating->evaluate == 5)
+                                            @php
+                                                $count++;
+                                            @endphp 
+                                        @endif      
+                                    @endforeach --}}
                                     <span class="qty_user">{{ $count }}</span>   
                                 </div>
                             </li>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    <span>4</span>
-                                    <span><i class='fas fa-star'></i></span>
-                                    <div class="progress w-75">
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%"></div>
-                                    </div>
                                     @php
                                         $count = 0;
                                     @endphp
@@ -155,16 +244,17 @@
                                             @endphp                                                
                                         @endif
                                     @endforeach
+                                    <span>4</span>
+                                    <span><i class='fas fa-star'></i></span>
+                                    <div class="progress w-75">
+                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                    </div>
                                     <span class="qty_user">{{ $count }}</span> 
                                 </div>
                             </li>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    <span>3</span>
-                                    <span><i class='fas fa-star'></i></span>
-                                    <div class="progress w-75">
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%"></div>
-                                    </div> 
                                     @php
                                         $count = 0;
                                     @endphp
@@ -175,16 +265,28 @@
                                             @endphp                                                
                                         @endif
                                     @endforeach
+                                    <span>3</span>
+                                    <span><i class='fas fa-star'></i></span>
+                                    <div class="progress w-75">
+                                        {{-- <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%"></div> --}}
+                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                    </div> 
+                                    {{-- @php
+                                        $count = 0;
+                                    @endphp
+                                    @foreach ($ratings as $rating)
+                                        @if ($rating->evaluate == 3)
+                                            @php
+                                                $count++;
+                                            @endphp                                                
+                                        @endif
+                                    @endforeach --}}
                                     <span class="qty_user">{{ $count }}</span>   
                                 </div>
                             </li>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    <span>2</span>
-                                    <span><i class='fas fa-star'></i></span>
-                                    <div class="progress w-75">
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%"></div>
-                                    </div>
                                     @php
                                         $count = 0;
                                     @endphp
@@ -195,16 +297,17 @@
                                             @endphp                                                
                                         @endif
                                     @endforeach
+                                    <span>2</span>
+                                    <span><i class='fas fa-star'></i></span>
+                                    <div class="progress w-75">
+                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                    </div>                 
                                 <span class="qty_user">{{ $count }}</span> 
                                 </div>
                             </li>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    <span>1</span>
-                                    <span><i class="fas fa-star"></i></span>
-                                    <div class="progress w-75">
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%"></div>
-                                    </div>
                                     @php
                                         $count = 0;
                                     @endphp
@@ -215,6 +318,12 @@
                                             @endphp                                                
                                         @endif
                                     @endforeach
+                                    <span>1</span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <div class="progress w-75">
+                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                    </div>
                                     <span class="qty_user">{{ $count }}</span> 
                                 </div>
                             </li>
