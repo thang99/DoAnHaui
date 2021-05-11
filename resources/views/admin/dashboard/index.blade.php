@@ -138,9 +138,9 @@
                 </thead>
                 @foreach ($products_sale as $item)
                     <tbody>
-                        <td>{{ $item->product->id }}</td>
-                        <td>{{ $item->product->name }}</td>
-                        <td>{{ $item->quantity }}</td>
+                        <td>{{ $item->product_id }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->product_qty }}</td>
                     </tbody>
                 @endforeach
             </table>

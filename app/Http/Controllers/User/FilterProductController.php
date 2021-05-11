@@ -46,12 +46,20 @@ class FilterProductController extends Controller
                         ->select('products.*')
                         ->paginate(12);          
         } else if($request->sort == 'ban-chay-nhat') {
+            // $products = DB::table('products')
+            //             ->join('orders_detail','products.id','=','orders_detail.product_id')
+            //             ->join('category_product','products.id','=','category_product.product_id')
+            //             ->where('category_product.category_id','=',$id)
+            //             ->orderByDesc('orders_detail.quantity')->distinct()
+            //             ->select('products.*')->paginate(12);
             $products = DB::table('products')
-                        ->join('orders_detail','products.id','=','orders_detail.product_id')
+                        ->selectRaw('products.*, sum(orders_detail.quantity) as product_qty')
                         ->join('category_product','products.id','=','category_product.product_id')
+                        ->join('orders_detail','products.id','=','orders_detail.product_id')
                         ->where('category_product.category_id','=',$id)
-                        ->orderByDesc('orders_detail.quantity')
-                        ->select('products.*')->paginate(12);
+                        ->groupBy('products.id')
+                        ->orderByDesc('product_qty')
+                        ->paginate(12);
         } else if($request->sort =='gia-tu-thap-den-cao') {
             $products =  DB::table('products')->join('category_product','products.id','=','category_product.product_id')
                         ->where('products.status','=',0)->where('category_product.category_id','=',$id)
@@ -87,11 +95,18 @@ class FilterProductController extends Controller
         } else if($request->price == 'tren-20-trieu'){
             $products = Product::where('status','=',0)->where('manufacturer_id','=',$id)->where('price','>=','20000000')->paginate(12);
         } else if($request->sort == 'ban-chay-nhat') {
+            // $products = DB::table('products')
+            //             ->join('orders_detail','products.id','=','orders_detail.product_id')
+            //             ->where('products.manufacturer_id','=',$id)
+            //             ->orderByDesc('orders_detail.quantity')->distinct()
+            //             ->select('products.*')->paginate(12);
             $products = DB::table('products')
+                        ->selectRaw('products.*, sum(orders_detail.quantity) as product_qty')
                         ->join('orders_detail','products.id','=','orders_detail.product_id')
                         ->where('products.manufacturer_id','=',$id)
-                        ->orderByDesc('orders_detail.quantity')
-                        ->select('products.*')->paginate(12);
+                        ->groupBy('products.id')
+                        ->orderByDesc('product_qty')
+                        ->paginate(12);
         } else if($request->sort =='gia-tu-thap-den-cao') {
             $products = Product::where('status','=',0)->where('manufacturer_id','=',$id)->orderBy('price','asc')->paginate(12); 
         } else if($request->sort == 'gia-tu-cao-den-thap') {
