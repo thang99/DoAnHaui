@@ -179,9 +179,133 @@
                                         </li> 
                                     @endfor
                                 </ul>
-                            @endif
-        
+                            @endif       
                             <small>{{ count($ratings) }} đánh giá</small> 
+                        </div>
+                        <div class="w-25">
+                            <ul>
+                                <li class="d-flex stars">
+                                    <div class="w-100">
+                                        @php
+                                            $count = 0;
+                                        @endphp
+                                        @foreach ($ratings as $rating)
+                                            @if ($rating->evaluate == 5)
+                                                @php
+                                                    $count++;
+                                                @endphp 
+                                            @endif      
+                                        @endforeach
+                                        <span>5</span>
+                                        <span><i class='fas fa-star'></i></span>
+                                        <div class="progress w-75">
+                                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                            echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        </div>
+                                        <span class="qty_user">{{ $count }}</span>   
+                                    </div>
+                                </li>
+                                <li class="d-flex stars">
+                                    <div class="w-100">
+                                        @php
+                                            $count = 0;
+                                        @endphp
+                                        @foreach ($ratings as $rating)
+                                            @if ($rating->evaluate == 4)
+                                                @php
+                                                    $count++;
+                                                @endphp                                                
+                                            @endif
+                                        @endforeach
+                                        <span>4</span>
+                                        <span><i class='fas fa-star'></i></span>
+                                        <div class="progress w-75">
+                                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                            echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        </div>
+                                        <span class="qty_user">{{ $count }}</span> 
+                                    </div>
+                                </li>
+                                <li class="d-flex stars">
+                                    <div class="w-100">
+                                        @php
+                                            $count = 0;
+                                        @endphp
+                                        @foreach ($ratings as $rating)
+                                            @if ($rating->evaluate == 3)
+                                                @php
+                                                    $count++;
+                                                @endphp                                                
+                                            @endif
+                                        @endforeach
+                                        <span>3</span>
+                                        <span><i class='fas fa-star'></i></span>
+                                        <div class="progress w-75">
+                                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                            echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        </div> 
+                                        <span class="qty_user">{{ $count }}</span>   
+                                    </div>
+                                </li>
+                                <li class="d-flex stars">
+                                    <div class="w-100">
+                                        @php
+                                            $count = 0;
+                                        @endphp
+                                        @foreach ($ratings as $rating)
+                                            @if ($rating->evaluate == 2)
+                                                @php
+                                                    $count++;
+                                                @endphp                                                
+                                            @endif
+                                        @endforeach
+                                        <span>2</span>
+                                        <span><i class='fas fa-star'></i></span>
+                                        <div class="progress w-75">
+                                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                            echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        </div>                 
+                                    <span class="qty_user">{{ $count }}</span> 
+                                    </div>
+                                </li>
+                                <li class="d-flex stars">
+                                    <div class="w-100">
+                                        @php
+                                            $count = 0;
+                                        @endphp
+                                        @foreach ($ratings as $rating)
+                                            @if ($rating->evaluate == 1)
+                                                @php
+                                                    $count++;
+                                                @endphp                                                
+                                            @endif
+                                        @endforeach
+                                        <span>1</span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <div class="progress w-75">
+                                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
+                                            echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        </div>
+                                        <span class="qty_user">{{ $count }}</span> 
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="w-25 ml-5">
+                            <form>
+                                @csrf
+                                <input type="hidden" class="product_id" value="{{ $product->id }}">
+                                <input type="hidden" class="user_id" value="{{ Auth::id() }}">
+                                <ul id="stars" class="d-flex mt-5">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <li class="star star-rating" data-value={{$i}} name="star">
+                                            <i class="fas fa-star"></i>
+                                        </li> 
+                                    @endfor
+                                </ul>
+                                <button type="button" class="btn btn-danger send-rating">Gửi đánh giá của bạn</button>
+                                <div id="noti-send-rating"></div>
+                            </form>
                         </div>
                     @else
                     <div class="w-25">
@@ -198,133 +322,56 @@
                         </ul>
                         <small>0 đánh giá</small> 
                     </div>
-                    @endif
                     <div class="w-25">
                         <ul>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    @php
-                                        $count = 0;
-                                    @endphp
-                                    @foreach ($ratings as $rating)
-                                        @if ($rating->evaluate == 5)
-                                            @php
-                                                $count++;
-                                            @endphp 
-                                        @endif      
-                                    @endforeach
                                     <span>5</span>
                                     <span><i class='fas fa-star'></i></span>
                                     <div class="progress w-75">
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
-                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
                                     </div>
-                                    {{-- @php
-                                        $count = 0;
-                                    @endphp
-                                    @foreach ($ratings as $rating)
-                                        @if ($rating->evaluate == 5)
-                                            @php
-                                                $count++;
-                                            @endphp 
-                                        @endif      
-                                    @endforeach --}}
-                                    <span class="qty_user">{{ $count }}</span>   
+                                    <span class="qty_user">0</span>   
                                 </div>
                             </li>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    @php
-                                        $count = 0;
-                                    @endphp
-                                    @foreach ($ratings as $rating)
-                                        @if ($rating->evaluate == 4)
-                                            @php
-                                                $count++;
-                                            @endphp                                                
-                                        @endif
-                                    @endforeach
                                     <span>4</span>
                                     <span><i class='fas fa-star'></i></span>
                                     <div class="progress w-75">
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
-                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
                                     </div>
-                                    <span class="qty_user">{{ $count }}</span> 
+                                    <span class="qty_user">0</span> 
                                 </div>
                             </li>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    @php
-                                        $count = 0;
-                                    @endphp
-                                    @foreach ($ratings as $rating)
-                                        @if ($rating->evaluate == 3)
-                                            @php
-                                                $count++;
-                                            @endphp                                                
-                                        @endif
-                                    @endforeach
                                     <span>3</span>
                                     <span><i class='fas fa-star'></i></span>
                                     <div class="progress w-75">
-                                        {{-- <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%"></div> --}}
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
-                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
                                     </div> 
-                                    {{-- @php
-                                        $count = 0;
-                                    @endphp
-                                    @foreach ($ratings as $rating)
-                                        @if ($rating->evaluate == 3)
-                                            @php
-                                                $count++;
-                                            @endphp                                                
-                                        @endif
-                                    @endforeach --}}
-                                    <span class="qty_user">{{ $count }}</span>   
+                                    <span class="qty_user">0</span>   
                                 </div>
                             </li>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    @php
-                                        $count = 0;
-                                    @endphp
-                                    @foreach ($ratings as $rating)
-                                        @if ($rating->evaluate == 2)
-                                            @php
-                                                $count++;
-                                            @endphp                                                
-                                        @endif
-                                    @endforeach
                                     <span>2</span>
                                     <span><i class='fas fa-star'></i></span>
                                     <div class="progress w-75">
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
-                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
                                     </div>                 
-                                <span class="qty_user">{{ $count }}</span> 
+                                <span class="qty_user">0</span> 
                                 </div>
                             </li>
                             <li class="d-flex stars">
                                 <div class="w-100">
-                                    @php
-                                        $count = 0;
-                                    @endphp
-                                    @foreach ($ratings as $rating)
-                                        @if ($rating->evaluate == 1)
-                                            @php
-                                                $count++;
-                                            @endphp                                                
-                                        @endif
-                                    @endforeach
                                     <span>1</span>
                                     <span><i class="fas fa-star"></i></span>
                                     <div class="progress w-75">
-                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: <?php
-                                        echo ceil(($count / count($ratings)) *100) ;?>%"></div>
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
                                     </div>
-                                    <span class="qty_user">{{ $count }}</span> 
+                                    <span class="qty_user">0</span> 
                                 </div>
                             </li>
                         </ul>
@@ -345,6 +392,7 @@
                             <div id="noti-send-rating"></div>
                         </form>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
