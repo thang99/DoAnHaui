@@ -1,5 +1,6 @@
 @extends('user.layouts.app')
 @section('content')
+    @include('user.layouts.__partials.breadcrum',['name' => 'Thông tin cá nhân của bạn'])
     <div class="main user-info">
         <h3 class="mb-5">Thông tin cá nhân</h3>
         <div class="form-group">

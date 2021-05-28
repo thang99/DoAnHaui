@@ -55,7 +55,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ route('carts.index') }}">
-                            <i class="fas fa-shopping-cart mr-1"><small style="margin-right:8px">{{Cart::count()}}</small></i>Giỏ hàng
+                            <i class="fas fa-shopping-cart mr-1"><small style="margin-right: 8px">{{Cart::count()}}</small></i>Giỏ hàng
                         </a>
                     </li>
                 </ul> 

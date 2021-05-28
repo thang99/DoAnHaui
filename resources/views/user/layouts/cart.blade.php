@@ -1,6 +1,7 @@
 @extends('user.layouts.app')
 
 @section('content')
+    @include('user.layouts.__partials.breadcrum',['name' => 'Giỏ hàng của bạn'])
     <div class="carts">
         <h3>Thông tin giỏ hàng</h3>
         @if (Cart::total() > 0)

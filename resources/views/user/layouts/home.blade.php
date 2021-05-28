@@ -20,13 +20,7 @@
 				<div class="swiper-button-prev"></div>
 				<div class="swiper-button-next"></div>
 			</div>
-			<div class="row mb-3 mt-3">
-				<span class="ml-3">Chọn mức giá: </span>
-				<a href="{{ URL::current()."?price=duoi-10-trieu" }}" class="filter-price">Dưới 10 triệu</a>
-				<a href="{{ URL::current()."?price=tu-10-den-15-trieu" }}" class="filter-price">Từ 10-15 triệu</a>
-				<a href="{{ URL::current()."?price=tu-15-den-20-trieu" }}" class="filter-price">Từ 15-20 triệu</a>
-				<a href="{{ URL::current()."?price=tren-20-trieu" }}" class="filter-price">Trên 20 triệu</a>
-			</div>
+			<div class="mt-3"></div>
 		</div>
 		
       	{{-- categories --}}
@@ -44,6 +38,13 @@
 
 		{{-- products --}}
 		<div class="col-12 bg-white p-3 mt-4">
+			<div class="row mb-3 mt-3">
+				<span class="ml-3">Chọn mức giá: </span>
+				<a href="{{ URL::current()."?price=duoi-10-trieu" }}" class="filter-price">Dưới 10 triệu</a>
+				<a href="{{ URL::current()."?price=tu-10-den-15-trieu" }}" class="filter-price">Từ 10-15 triệu</a>
+				<a href="{{ URL::current()."?price=tu-15-den-20-trieu" }}" class="filter-price">Từ 15-20 triệu</a>
+				<a href="{{ URL::current()."?price=tren-20-trieu" }}" class="filter-price">Trên 20 triệu</a>
+			</div>
 			<div class="row mb-3 mt-3">
 				<span class="ml-3">Ưu tiên xem: </span>
 				<a href="{{ URL::current()."?sort=ban-chay-nhat" }}" class="sort">Bán chạy nhất</a>

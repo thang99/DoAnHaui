@@ -1,5 +1,6 @@
 @extends('user.layouts.app')
 @section('content')
+    @include('user.layouts.__partials.breadcrum',['name' => 'Thay đổi thông tin cá nhân và mật khẩu của bạn'])
     <div class="main user-info">
         <div class="row">
             <div class="col-6 border-right">
